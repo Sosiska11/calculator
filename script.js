@@ -64,7 +64,13 @@ addButt.addEventListener('click', ()=>{
         display.textContent += '+'
         operator = '+'
         clickOperator = false;
-        switchForOperand = false;
+        if (switchForOperand){
+            switchForOperand = false;
+        } else{
+            let operatedNum = operate(firstNum, operator, secondNum);
+            firstNum = operatedNum;
+            secondNum = 0;
+        }
     } else {
         alert('NO its PATRICK. Click number')
     }
@@ -76,11 +82,11 @@ result.addEventListener('click', () =>{
     secondNum = Number(secondNum)
     let answer = operate(firstNum, operator, secondNum)
     display.textContent = answer;
-    firstNum = answer.toString();
+    firstNum = '';
     operator = '';
     secondNum = '';
     switchForOperand = true;
-})
+});
 
 let cAc = document.querySelector('.cButt')
 cAc.addEventListener('click', ()=>{
@@ -89,4 +95,4 @@ cAc.addEventListener('click', ()=>{
     secondNum = '';
     operator = '';
     display.textContent = '';
-})
+});
