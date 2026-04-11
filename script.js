@@ -1,5 +1,5 @@
-let firstNum=0;
-let secondNum=0;
+let firstNum= '';
+let secondNum= '';
 let operator='';
 
 let switchForOperand = true;
@@ -38,24 +38,33 @@ function operate(firstNum, operator, secondNum){
 
 let container = document.querySelector('.container')
 let display = document.querySelector('.display')
-let numButton1 = document.querySelector('.Butt1')
+let numberContainer = document.querySelector('.numberButtons')
 
-numButton1.addEventListener('click', ()=>{
-    display.textContent += 1
+function handleNumber(digit){
+    display.textContent += digit;
     if (switchForOperand){
-        firstNum += 1
+        firstNum += digit
     } else {
-        secondNum +=1
+        secondNum += digit
     }
-    clickOperator = true
-});
+    clickOperator = true;
+};
+
+for (let i=0; i<10; i++){
+    let numberButton = document.createElement('div');
+    numberButton.setAttribute('id', 'numberButton')
+    numberButton.textContent = i;
+    numberButton.addEventListener('click', () => handleNumber(i))
+    numberContainer.appendChild(numberButton);
+}
 
 let addButt = document.querySelector('.addButt')
 addButt.addEventListener('click', ()=>{
     if (clickOperator){
         display.textContent += '+'
         operator = '+'
-        clickOperator = false
+        clickOperator = false;
+        switchForOperand = false;
     } else {
         alert('NO its PATRICK. Click number')
     }
@@ -63,8 +72,21 @@ addButt.addEventListener('click', ()=>{
 
 let result = document.querySelector('.equalsButt')
 result.addEventListener('click', () =>{
-    +firstNum;
-    +secondNum;
-    display.textContent = operate(firstNum, operator, secondNum)
-    operator = ''
+    firstNum = Number(firstNum)
+    secondNum = Number(secondNum)
+    let answer = operate(firstNum, operator, secondNum)
+    display.textContent = answer;
+    firstNum = answer.toString();
+    operator = '';
+    secondNum = '';
+    switchForOperand = true;
+})
+
+let cAc = document.querySelector('.cButt')
+cAc.addEventListener('click', ()=>{
+    switchForOperand = true;
+    firstNum = '';
+    secondNum = '';
+    operator = '';
+    display.textContent = '';
 })
