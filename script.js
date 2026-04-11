@@ -64,10 +64,20 @@ function handleNumber(digit){
 
 function universalOperator(digitOperator){
     if (clickOperator){
-        display.textContent += digitOperator
-        operator = digitOperator
-        clickOperator = false;
-        switchForOperand = false;
+        if (secondNum){
+            display.textContent += digitOperator
+            firstNum = Number(firstNum)
+            secondNum = Number(secondNum)
+            firstNum = operate(firstNum, operator, secondNum)
+            operator = digitOperator;
+            secondNum =''
+            clickOperator = false;
+        } else {
+            display.textContent += digitOperator
+            operator = digitOperator
+            clickOperator = false;
+            switchForOperand = false;
+        }
     } else {
         alert('NO its PATRICK. Click number')
     }
