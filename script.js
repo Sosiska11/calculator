@@ -40,6 +40,18 @@ let container = document.querySelector('.container')
 let display = document.querySelector('.display')
 let numberContainer = document.querySelector('.numberButtons')
 
+//Create div with numbers
+
+for (let i=0; i<10; i++){
+    let numberButton = document.createElement('div');
+    numberButton.setAttribute('id', 'numberButton')
+    numberButton.textContent = i;
+    numberButton.addEventListener('click', () => handleNumber(i))
+    numberContainer.appendChild(numberButton);
+}
+
+//Functions for operators
+
 function handleNumber(digit){
     display.textContent += digit;
     if (switchForOperand){
@@ -50,30 +62,41 @@ function handleNumber(digit){
     clickOperator = true;
 };
 
-for (let i=0; i<10; i++){
-    let numberButton = document.createElement('div');
-    numberButton.setAttribute('id', 'numberButton')
-    numberButton.textContent = i;
-    numberButton.addEventListener('click', () => handleNumber(i))
-    numberContainer.appendChild(numberButton);
-}
-
-let addButt = document.querySelector('.addButt')
-addButt.addEventListener('click', ()=>{
+function universalOperator(digitOperator){
     if (clickOperator){
-        display.textContent += '+'
-        operator = '+'
+        display.textContent += digitOperator
+        operator = digitOperator
         clickOperator = false;
-        if (switchForOperand){
-            switchForOperand = false;
-        } else{
-            let operatedNum = operate(firstNum, operator, secondNum);
-            firstNum = operatedNum;
-            secondNum = 0;
-        }
+        switchForOperand = false;
     } else {
         alert('NO its PATRICK. Click number')
     }
+}
+
+//Operators
+
+let addButt = document.querySelector('.addButt')
+addButt.addEventListener('click', ()=>{
+    universalOperator('+')
+}); 
+
+let subtractButt = document.querySelector('.subtractButt')
+subtractButt.addEventListener('click', ()=>{
+    universalOperator('-')
+}); 
+
+let multiplyButt= document.querySelector('.multiplyButt')
+multiplyButt.addEventListener('click', ()=>{
+    universalOperator('*')
+}); 
+let divideButt = document.querySelector('.divideButt')
+divideButt.addEventListener('click', ()=>{
+    universalOperator('/')
+}); 
+
+let powerButt = document.querySelector('.powerButt')
+powerButt.addEventListener('click', ()=>{
+    universalOperator('**')
 }); 
 
 let result = document.querySelector('.equalsButt')
