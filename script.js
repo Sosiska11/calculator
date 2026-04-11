@@ -1,18 +1,15 @@
+let firstNum=0;
+let secondNum=0;
+let operator='';
+
+let switchForOperand = true;
+let clickOperator = true;
+
 const add = (a,b) =>  a+b
-
 const subtract = (a,b) =>  a-b
-
-const multiply = (a, b) => a*b;
-
+const multiply = (a,b) => a*b;
+const divide = (a,b) => a/b
 const power = (a,b) => a**b;
-
-const factorial = (n) => n == 0 ? 1 : (n != 1) ? n * factorial(n - 1) : 1;
-
-
-
-let firstNum;
-let secondNum;
-let operator;
 
 function operate(firstNum, operator, secondNum){
     let result;
@@ -26,11 +23,48 @@ function operate(firstNum, operator, secondNum){
         case '*':
             result = multiply(firstNum, secondNum)
         break;
+        case '/':
+            result = divide(firstNum, secondNum)
+        break;
         case '**':
             result = power(firstNum, secondNum)
         break;
         default:
-            alert('enter nums')
+            alert('Error')
         break;
+    }
+    return result
 }
-}
+
+let container = document.querySelector('.container')
+let display = document.querySelector('.display')
+let numButton1 = document.querySelector('.Butt1')
+
+numButton1.addEventListener('click', ()=>{
+    display.textContent += 1
+    if (switchForOperand){
+        firstNum += 1
+    } else {
+        secondNum +=1
+    }
+    clickOperator = true
+});
+
+let addButt = document.querySelector('.addButt')
+addButt.addEventListener('click', ()=>{
+    if (clickOperator){
+        display.textContent += '+'
+        operator = '+'
+        clickOperator = false
+    } else {
+        alert('NO its PATRICK. Click number')
+    }
+}); 
+
+let result = document.querySelector('.equalsButt')
+result.addEventListener('click', () =>{
+    +firstNum;
+    +secondNum;
+    display.textContent = operate(firstNum, operator, secondNum)
+    operator = ''
+})
