@@ -4,6 +4,7 @@ let operator='';
 
 let switchForOperand = true;
 let clickOperator = true;
+let clearDisplay = false; 
 
 const add = (a,b) =>  a+b
 const subtract = (a,b) =>  a-b
@@ -53,6 +54,10 @@ for (let i=0; i<10; i++){
 //Functions for operators
 
 function handleNumber(digit){
+    if (clearDisplay){
+            display.textContent = '';
+            clearDisplay = false;
+    }
     display.textContent += digit;
     if (switchForOperand){
         firstNum += digit
@@ -119,6 +124,7 @@ result.addEventListener('click', () =>{
     operator = '';
     secondNum = '';
     switchForOperand = true;
+    clearDisplay = true;
 });
 
 let cAc = document.querySelector('.cButt')
